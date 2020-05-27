@@ -26,10 +26,8 @@ def demangle_exe_path():
 
 def demangle(func_list):
     proc = subprocess.Popen(demangle_exe_path(),stdout=subprocess.PIPE,stdin=subprocess.PIPE)
-    proc.stdin.write('\n'.join(func_list))
-    proc.stdin.close()
-    out = proc.stdout.read()
-    proc.wait()
+    names = '\n'.join(func_list)
+    out, _ = proc.communicate(names)
     result = out.split('\n')
     return result
 
